@@ -27,7 +27,8 @@ dependencies {
     //dagger2.x
     implementation "com.google.dagger:dagger-android:$rootProject.dagger2Version"
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version" // if you use the support libraries
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
+//    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
 
     testImplementation "junit:junit:$rootProject.ext.junitVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
