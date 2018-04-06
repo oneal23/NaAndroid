@@ -5,11 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.na.mvp.R;
 
-public class MainActivity extends AppCompatActivity {
+import javax.inject.Inject;
 
+public class MainActivity extends AppCompatActivity {
+    @Inject
+    MainItem mainItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 }
