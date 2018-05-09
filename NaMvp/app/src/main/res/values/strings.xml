@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NaMvp</string>
+    <string name="api_default_error">api default error</string>
+    <string name="connection_error">connection error</string>
+    <string name="api_retry_error">api retry error</string>
+    <string name="some_error">some error</string>
 </resources>

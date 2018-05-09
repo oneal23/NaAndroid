@@ -5,9 +5,9 @@ package com.na.mvp.ui.main;
  * @DATE: 2018/4/6
  */
 
-public class MainItem {
+public class MainItem1 {
     private int value = 0;
-    public MainItem() {
+    public MainItem1() {
         value = 1;
     }
 }

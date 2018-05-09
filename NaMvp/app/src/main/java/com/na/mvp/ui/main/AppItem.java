@@ -1,13 +1,16 @@
 package com.na.mvp.ui.main;
 
+import javax.inject.Inject;
+
 /**
  * @actor:taotao
  * @DATE: 2018/4/6
  */
 
-public class MainItem {
+public class AppItem {
     private int value = 0;
-    public MainItem() {
+    @Inject
+    public AppItem() {
         value = 1;
     }
 }
