@@ -1,5 +1,6 @@
 package com.na.demo.ui.splash;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -43,6 +44,7 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
         hideActionBar();
         setStatusBarColorResId(R.color.bg_color_1);
         super.onCreate(savedInstanceState);
+        boolean flag = NaPermission.checkDrawOverlaysPermission(this);
     }
 
     @Override
@@ -56,9 +58,9 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
 
         if (!isNeedCheckPermission) {
             isNeedCheckPermission = true;
-            NaPermission.with(this).addRequestCode(NaPermission.RequestCode.STORAGE)
-                    .addPermissions(NaPermission.Permission.STORAGE)
-                    .addPermissions(NaPermission.Permission.PHONE)
+
+            NaPermission.with(this)
+                    .addPermissions(Manifest.permission.INTERNET, Manifest.permission.SYSTEM_ALERT_WINDOW)
                     .request(new NaPermission.PermissionCallback() {
                         @Override
                         public void onPermissionsGranted(int requestCode) {

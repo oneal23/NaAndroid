@@ -1,7 +1,8 @@
 package com.na.mvp.ui.base;
 
-import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public abstract class BaseSubView extends ViewGroup implements SubMvpView {
         super(context, attrs, defStyleAttr);
     }
 
-    @TargetApi(21)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public BaseSubView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }

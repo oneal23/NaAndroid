@@ -1,10 +1,14 @@
 package com.na.utils.permission;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
@@ -28,6 +32,18 @@ public class NaPermission {
         int SENSORS = 10007;
         int SMS = 10008;
         int STORAGE = 10009;
+        int DRAWOVERLAYS = 20001;
+    }
+
+    public interface PermissionCallback {
+        //请求权限成功
+        void onPermissionsGranted(int requestCode);
+
+        //请求权限失败
+        void onPermissionsDenied(int requestCode);
+
+        //请求权限失败不再提示
+        void onPermissionsDeniedAlways(int requestCode);
     }
 
     public static class Permission {
@@ -148,13 +164,11 @@ public class NaPermission {
         return this;
     }
 
-    @TargetApi(value = Build.VERSION_CODES.M)
     public void request() {
         permissionCallback = null;
         requestPermissions(object, mRequestCode, getPermissions());
     }
 
-    @TargetApi(value = Build.VERSION_CODES.M)
     public void request(PermissionCallback callback) {
         if (callback != null) {
             permissionCallback = callback;
@@ -228,7 +242,6 @@ public class NaPermission {
      * @param requestCode
      * @param permissions
      */
-    @TargetApi(value = Build.VERSION_CODES.M)
     private static void requestPermissions(Object object, int requestCode, String[] permissions) {
         if (!NaPermissionUtils.isOverMarshmallow()) {
             if (permissionCallback != null) {
@@ -244,13 +257,7 @@ public class NaPermission {
          * 先检查是否有没有授予的权限，有的话请求，没有的话就直接执行权限授予成功的接口/注解方法
          */
         if (deniedPermissions.size() > 0) {
-            if (object instanceof Activity) {
-                ((Activity) object).requestPermissions(deniedPermissions.toArray(new String[deniedPermissions.size()]), requestCode);
-            } else if (object instanceof Fragment) {
-                ((Fragment) object).requestPermissions(deniedPermissions.toArray(new String[deniedPermissions.size()]), requestCode);
-            } else {
-                throw new IllegalArgumentException(object.getClass().getName() + " is not supported");
-            }
+
 
         } else {
             if (permissionCallback != null) {
@@ -258,6 +265,17 @@ public class NaPermission {
             } else {
                 doExecuteGranted(object, requestCode);
             }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private static void requestPermissionsImpl(Object object, int requestCode, String[] permissions){
+        if (object instanceof Activity) {
+            ((Activity) object).requestPermissions(permissions, requestCode);
+        } else if (object instanceof Fragment) {
+            ((Fragment) object).requestPermissions(permissions, requestCode);
+        } else {
+            throw new IllegalArgumentException(object.getClass().getName() + " is not supported");
         }
     }
 
@@ -316,7 +334,7 @@ public class NaPermission {
         if (deniedPermissions.size() > 0) {
             Activity activity = NaPermissionUtils.getActivity(obj);
             boolean isRationale = false;
-            if (activity != null){
+            if (activity != null) {
                 isRationale = ActivityCompat.shouldShowRequestPermissionRationale(activity, deniedPermissions.get(0));
             }
 
@@ -342,14 +360,103 @@ public class NaPermission {
         }
     }
 
-    public interface PermissionCallback {
-        //请求权限成功
-        void onPermissionsGranted(int requestCode);
+    public void requestDrawOverlaysPermission(PermissionCallback callback) {
+        if (callback != null) {
+            permissionCallback = callback;
+        }
+        needDrawOverlaysPermission();
+    }
 
-        //请求权限失败
-        void onPermissionsDenied(int requestCode);
+    public void needDrawOverlaysPermission() {
+        needDrawOverlaysPermission(object);
+    }
 
-        //请求权限失败不再提示
-        void onPermissionsDeniedAlways(int requestCode);
+    public static void needDrawOverlaysPermission(Activity activity) {
+        needDrawOverlaysPermission(activity);
+    }
+
+    public static void needDrawOverlaysPermission(Fragment fragment) {
+        needDrawOverlaysPermission(fragment);
+    }
+
+    private static void needDrawOverlaysPermission(Object obj) {
+        Activity activity = NaPermissionUtils.getActivity(obj);
+        if (!checkDrawOverlaysPermission(activity)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + activity.getPackageName()));
+            activity.startActivityForResult(intent, RequestCode.DRAWOVERLAYS);
+        }
+    }
+
+    public static boolean checkDrawOverlaysPermission(Context context) {
+        boolean flag = false;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            flag = true;
+        } else {
+            flag = Settings.canDrawOverlays(context);
+        }
+        return flag;
+    }
+
+
+//    public static boolean checkDrawOverlaysPermission(Context context) {
+//        boolean flag = false;
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//            flag = true;
+//        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+//            try {
+//                Class cls = Class.forName("android.content.Context");
+//                Field declaredField = cls.getDeclaredField("APP_OPS_SERVICE");
+//                declaredField.setAccessible(true);
+//                Object obj = declaredField.get(cls);
+//                String str2 = (String) obj;
+//                obj = cls.getMethod("getSystemService", String.class).invoke(context, str2);
+//                cls = Class.forName("android.app.AppOpsManager");
+//                Field declaredField2 = cls.getDeclaredField("MODE_ALLOWED");
+//                declaredField2.setAccessible(true);
+//                Method checkOp = cls.getMethod("checkOp", Integer.TYPE, Integer.TYPE, String.class);
+//                int result = (Integer) checkOp.invoke(obj, 24, Binder.getCallingUid(), context.getPackageName());
+//                flag = (result == declaredField2.getInt(cls));
+//            } catch (Exception e) {
+//
+//            }
+//        } else {
+//            AppOpsManager appOpsMgr = null;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                appOpsMgr = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+//            }
+//
+//            if (appOpsMgr != null) {
+//                int mode = appOpsMgr.checkOpNoThrow("android:system_alert_window", android.os.Process.myUid(), context.getPackageName());
+//                flag = (mode == AppOpsManager.MODE_ALLOWED || mode == AppOpsManager.MODE_IGNORED);
+//            } else {
+//                flag = Settings.canDrawOverlays(context);
+//            }
+//
+//        }
+//
+//        return flag;
+//    }
+
+    public static void onActivityResult(Object obj, int requestCode, int resultCode, Intent data) {
+        requestResult(obj, requestCode, resultCode, data);
+    }
+
+    private static void requestResult(Object obj, int requestCode, int resultCode, Intent data) {
+        if (requestCode == RequestCode.DRAWOVERLAYS) {
+            Activity activity = NaPermissionUtils.getActivity(obj);
+            if (!checkDrawOverlaysPermission(activity)) {
+                if (permissionCallback != null) {
+                    permissionCallback.onPermissionsDenied(requestCode);
+                } else {
+                    doExecuteDenied(obj, requestCode);
+                }
+            } else {
+                if (permissionCallback != null) {
+                    permissionCallback.onPermissionsGranted(requestCode);
+                } else {
+                    permissionCallback.onPermissionsGranted(requestCode);
+                }
+            }
+        }
     }
 }

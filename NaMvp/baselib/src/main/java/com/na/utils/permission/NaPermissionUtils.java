@@ -35,7 +35,7 @@ public class NaPermissionUtils {
      * @param permission
      * @return
      */
-    @TargetApi(value = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public static List<String> findDeniedPermissions(Activity activity, String... permission) {
         List<String> denyPermissions = new ArrayList<>();
         for (String value : permission) {
