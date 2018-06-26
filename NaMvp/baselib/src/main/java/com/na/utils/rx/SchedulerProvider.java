@@ -1,4 +1,4 @@
-package com.na.mvp.utils.rx;
+package com.na.utils.rx;
 
 import io.reactivex.Scheduler;
 
