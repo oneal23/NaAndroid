@@ -3,11 +3,13 @@ package com.na.ui.base;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.na.utils.AppManager;
+import com.na.utils.permission.NaPermission;
 
 /**
  * Created by oneal23 on 2018/6/26.
@@ -59,5 +61,11 @@ public class BaseActivity extends AppCompatActivity {
             flag = true;
         }
         return flag;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        NaPermission.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 }
