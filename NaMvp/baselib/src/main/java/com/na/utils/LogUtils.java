@@ -1,5 +1,6 @@
 package com.na.utils;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.na.base.BuildConfig;
@@ -49,32 +50,36 @@ public class LogUtils {
         }
     }
 
-    public static void e(String tag, String msg, Throwable e) {
-        Logger.e(e, tag + ":" + msg);
+    public static void e(@Nullable Throwable throwable, @NonNull String message, @Nullable Object... args){
+        Logger.e(throwable, message, args);
     }
 
-    public static void e(String tag, String msg) {
-        Logger.e(tag + ":" + msg);
+    public static void e(@NonNull String message, @Nullable Object... args) {
+        e(null, message, args);
     }
 
-    public static void w(String tag, String msg) {
-        Logger.w(tag + ":" + msg);
+    public static void w(@NonNull String message, @Nullable Object... args) {
+        Logger.w(message, args);
     }
 
-    public static void i(String tag, String msg) {
-        Logger.i(tag + ":" + msg);
+    public static void i(@NonNull String message, @Nullable Object... args) {
+        Logger.i(message, args);
     }
 
 
-    public static void d(String tag, String msg) {
-        Logger.d(tag + ":" + msg);
+    public static void d(@NonNull String message, @Nullable Object... args) {
+        Logger.d(message, args);
     }
 
-    public static void v(String tag, String msg) {
-        Logger.v(tag + ":" + msg);
+    public static void v(@NonNull String message, @Nullable Object... args) {
+        Logger.v(message, args);
     }
 
     public static void json(String json) {
         Logger.json(json);
+    }
+
+    public static void xml(String xml){
+        Logger.xml(xml);
     }
 }
