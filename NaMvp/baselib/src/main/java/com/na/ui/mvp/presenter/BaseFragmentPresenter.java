@@ -11,8 +11,7 @@ import com.na.ui.base.BaseFragment;
 import com.na.ui.mvp.view.IBaseView;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public abstract class BaseFragmentPresenter<V extends IBaseView> extends BaseFragment implements IBasePresenter {
 

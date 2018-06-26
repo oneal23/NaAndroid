@@ -6,8 +6,7 @@ import com.na.ui.mvp.view.ButterKnifeView;
 import butterknife.OnClick;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public class LoginView extends ButterKnifeView {
 

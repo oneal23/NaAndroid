@@ -11,8 +11,7 @@ import com.na.demo.data.net.api.GameStarVoteResponse;
 import io.reactivex.Single;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/25
+ * Created by oneal23 on 2018/6/26.
  */
 public class AppDataManager implements IDataManager, IApiHelper {
 

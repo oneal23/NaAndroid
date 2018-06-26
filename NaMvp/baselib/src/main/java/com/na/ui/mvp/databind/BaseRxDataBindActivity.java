@@ -10,8 +10,7 @@ import com.na.utils.rx.SchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/24
+ * Created by oneal23 on 2018/6/26.
  */
 public abstract class BaseRxDataBindActivity<V extends IBaseView> extends BaseDataBindActivity<V> {
 

@@ -5,9 +5,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- *  @actor:taotao
- * @DATE: 2018/4/7
-*/
+ * Created by oneal23 on 2018/6/26.
+ */
 
 public class AppSchedulerProvider implements ISchedulerProvider {
 

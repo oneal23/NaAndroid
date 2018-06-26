@@ -4,8 +4,7 @@ import com.na.ui.mvp.model.IBaseModel;
 import com.na.ui.mvp.view.IBaseView;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public interface IDataBinder<V extends IBaseView, M extends IBaseModel> {
     void viewBindModel(V viewDelegate, M data);

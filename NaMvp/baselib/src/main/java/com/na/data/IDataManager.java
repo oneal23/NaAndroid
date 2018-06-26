@@ -3,8 +3,7 @@ package com.na.data;
 import com.na.data.net.IHttpHelper;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/25
+ * Created by oneal23 on 2018/6/26.
  */
 public interface IDataManager{
      IHttpHelper getHttpHelper();

@@ -3,8 +3,7 @@ package com.na.utils.crash;
 import com.na.utils.LogUtils;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/28
+ * Created by oneal23 on 2018/6/26.
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
 

@@ -10,8 +10,7 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public class LogUtils {
 

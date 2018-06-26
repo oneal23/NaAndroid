@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public abstract class ButterKnifeView extends BaseView {
 

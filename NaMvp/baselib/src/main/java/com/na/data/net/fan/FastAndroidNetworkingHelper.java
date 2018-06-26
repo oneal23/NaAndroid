@@ -7,8 +7,7 @@ import com.rx2androidnetworking.Rx2AndroidNetworking;
 import io.reactivex.Single;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/25
+ * Created by oneal23 on 2018/6/26.
  */
 public class FastAndroidNetworkingHelper implements IHttpHelper {
 

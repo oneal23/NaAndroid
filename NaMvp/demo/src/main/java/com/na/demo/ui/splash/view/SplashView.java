@@ -7,8 +7,7 @@ import com.na.ui.widget.NaImageView;
 import butterknife.BindView;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public class SplashView extends ButterKnifeView {
 

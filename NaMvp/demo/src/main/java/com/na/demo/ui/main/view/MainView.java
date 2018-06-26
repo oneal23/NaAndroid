@@ -4,8 +4,7 @@ import com.na.demo.R;
 import com.na.ui.mvp.view.ButterKnifeView;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/22
+ * Created by oneal23 on 2018/6/26.
  */
 public class MainView extends ButterKnifeView {
 

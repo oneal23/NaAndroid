@@ -10,8 +10,7 @@ import android.view.View;
 import com.na.utils.AppManager;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public class BaseActivity extends AppCompatActivity {
     @Override

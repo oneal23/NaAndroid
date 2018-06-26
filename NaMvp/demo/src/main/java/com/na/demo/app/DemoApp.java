@@ -7,8 +7,7 @@ import com.na.demo.BuildConfig;
 import com.na.utils.LogUtils;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/22
+ * Created by oneal23 on 2018/6/26.
  */
 public class DemoApp extends BaseAppliction{
     @Override

@@ -5,8 +5,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public class NaImageView extends AppCompatImageView {
     public NaImageView(Context context) {

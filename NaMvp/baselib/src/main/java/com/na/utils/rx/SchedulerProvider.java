@@ -3,8 +3,7 @@ package com.na.utils.rx;
 import io.reactivex.Scheduler;
 
 /**
- *  @actor:taotao
- * @DATE: 2018/4/7
+ * Created by oneal23 on 2018/6/26.
  */
 
 public interface SchedulerProvider {

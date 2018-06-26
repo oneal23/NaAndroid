@@ -5,8 +5,7 @@ import com.na.demo.data.net.base.ApiResponse;
 import java.util.List;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/25
+ * Created by oneal23 on 2018/6/26.
  */
 public class GameStarVoteResponse extends ApiResponse<List<GameStarVoteResponse.LastWinUser>> {
 

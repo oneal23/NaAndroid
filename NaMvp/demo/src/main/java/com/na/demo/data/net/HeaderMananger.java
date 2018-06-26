@@ -5,8 +5,7 @@ import com.na.data.net.IHttpHeaderManager;
 import com.na.demo.BuildConfig;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/25
+ * Created by oneal23 on 2018/6/26.
  */
 public class HeaderMananger implements IHttpHeaderManager {
 

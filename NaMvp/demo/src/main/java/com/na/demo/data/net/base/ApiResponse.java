@@ -4,8 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.na.data.net.IBaseHttpResponse;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/25
+ * Created by oneal23 on 2018/6/26.
  */
 public abstract class ApiResponse<D> implements IBaseHttpResponse {
 

@@ -6,8 +6,7 @@ import java.lang.ref.WeakReference;
 import java.util.Stack;
 
 /**
- * @actor:taotao
- * @DATE: 2018/5/23
+ * Created by oneal23 on 2018/6/26.
  */
 public class AppManager {
 
