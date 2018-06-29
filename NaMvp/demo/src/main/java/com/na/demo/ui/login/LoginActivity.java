@@ -8,7 +8,7 @@ import com.na.demo.data.net.api.GameStarVoteResponse;
 import com.na.demo.ui.login.view.LoginView;
 import com.na.ui.mvp.databind.BaseRxDataBindActivity;
 import com.na.ui.mvp.view.BaseView;
-import com.na.utils.LogUtils;
+import com.na.utils.LogUtil;
 
 import io.reactivex.functions.Consumer;
 
@@ -48,12 +48,12 @@ public class LoginActivity extends BaseRxDataBindActivity<LoginView> implements 
                 .subscribe(new Consumer<GameStarVoteResponse>() {
                     @Override
                     public void accept(GameStarVoteResponse gameStarVoteResponse) throws Exception {
-                        LogUtils.d("isSuc=",  "" + gameStarVoteResponse.isSuccess());
+                        LogUtil.d("isSuc=",  "" + gameStarVoteResponse.isSuccess());
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        LogUtils.d("error", throwable.getMessage());
+                        LogUtil.d("error", throwable.getMessage());
                     }
                 }));
 //        getCompositeDisposable().add((Disposable) AppDataManager.getInstance().getGameStarVote().observeOn(getSchedulerProvider().ui()));

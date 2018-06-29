@@ -9,7 +9,7 @@ import com.na.demo.R;
 import com.na.demo.ui.login.LoginActivity;
 import com.na.demo.ui.splash.view.SplashView;
 import com.na.ui.mvp.databind.BaseRxDataBindActivity;
-import com.na.utils.LogUtils;
+import com.na.utils.LogUtil;
 import com.na.utils.permission.NaPermission;
 
 import java.util.concurrent.TimeUnit;
@@ -22,6 +22,7 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
     private static final String TAG = "SplashActivity";
 
     private final static int DELAY_TIME = 3000;
+    private static final int PHONESTATE = 200;
 
     private boolean isSplash = false;
 
@@ -44,7 +45,6 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
         hideActionBar();
         setStatusBarColorResId(R.color.bg_color_1);
         super.onCreate(savedInstanceState);
-        boolean flag = NaPermission.checkDrawOverlaysPermission(this);
     }
 
     @Override
@@ -58,25 +58,25 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
 
         if (!isNeedCheckPermission) {
             isNeedCheckPermission = true;
-
             NaPermission.with(this)
-                    .addPermissions(Manifest.permission.INTERNET, Manifest.permission.SYSTEM_ALERT_WINDOW)
+                    .addRequestCode(PHONESTATE)
+                    .addPermissions(Manifest.permission.READ_PHONE_STATE)
                     .request(new NaPermission.PermissionCallback() {
                         @Override
                         public void onPermissionsGranted(int requestCode) {
-                            LogUtils.e("permissionSuccess requsetCode=" + requestCode);
+                            LogUtil.e("permissionSuccess requsetCode=" + requestCode);
                             gotoLogin();
                         }
 
                         @Override
                         public void onPermissionsDenied(int requestCode) {
-                            LogUtils.e("onPermissionsDenied requsetCode=" + requestCode);
+                            LogUtil.e("onPermissionsDenied requsetCode=" + requestCode);
                             gotoLogin();
                         }
 
                         @Override
                         public void onPermissionsDeniedAlways(int requestCode) {
-                            LogUtils.e("onPermissionsDeniedAlways requsetCode=" + requestCode);
+                            LogUtil.e("onPermissionsDeniedAlways requsetCode=" + requestCode);
                             gotoLogin();
                         }
                     });
@@ -95,18 +95,18 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
 
                 @Override
                 public void onNext(Long l) {
-                    LogUtils.d(TAG, "onNext " + l);
+                    LogUtil.d(TAG, "onNext " + l);
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    LogUtils.d(TAG, "onError ");
+                    LogUtil.d(TAG, "onError ");
                     isSplash = false;
                 }
 
                 @Override
                 public void onComplete() {
-                    LogUtils.d(TAG, "onComplete ");
+                    LogUtil.d(TAG, "onComplete ");
                     isSplash = false;
                     gotoLogin();
                 }

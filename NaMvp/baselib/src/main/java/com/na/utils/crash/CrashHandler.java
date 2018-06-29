@@ -1,6 +1,6 @@
 package com.na.utils.crash;
 
-import com.na.utils.LogUtils;
+import com.na.utils.LogUtil;
 
 /**
  * Created by oneal23 on 2018/6/26.
@@ -11,6 +11,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
-        LogUtils.e(e, TAG, t);
+        LogUtil.e(e, TAG, t);
     }
 }

@@ -1,9 +1,9 @@
 package com.na.utils.permission;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 
 import java.lang.annotation.Annotation;

@@ -242,6 +242,7 @@ public class NaPermission {
      * @param requestCode
      * @param permissions
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private static void requestPermissions(Object object, int requestCode, String[] permissions) {
         if (!NaPermissionUtils.isOverMarshmallow()) {
             if (permissionCallback != null) {
@@ -257,8 +258,7 @@ public class NaPermission {
          * 先检查是否有没有授予的权限，有的话请求，没有的话就直接执行权限授予成功的接口/注解方法
          */
         if (deniedPermissions.size() > 0) {
-
-
+            requestPermissionsImpl(object, requestCode, permissions);
         } else {
             if (permissionCallback != null) {
                 permissionCallback.onPermissionsGranted(requestCode);

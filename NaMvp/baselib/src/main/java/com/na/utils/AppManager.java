@@ -26,7 +26,6 @@ public class AppManager {
         return AppManagerHolder.INSTANCE;
     }
 
-
     private void addActivity(WeakReference<Activity> weakRef) {
         if (activityStack == null) {
             activityStack = new Stack<WeakReference<Activity>>();
@@ -58,7 +57,7 @@ public class AppManager {
 
     public void addActivity(Activity activity) {
         if (activity != null) {
-            LogUtils.d(TAG, "addActivity:" + activity.getClass().getName());
+            LogUtil.d(TAG, "addActivity:" + activity.getClass().getName());
             WeakReference<Activity> weakReference = new WeakReference(activity);
             addActivity(weakReference);
         }
@@ -66,7 +65,7 @@ public class AppManager {
 
     public void removeActivity(Activity activity) {
         if (activity != null) {
-            LogUtils.d(TAG, "removeActivity:" + activity.getClass().getName());
+            LogUtil.d(TAG, "removeActivity:" + activity.getClass().getName());
             removeActivity(getActivityWeakRef(activity));
         }
     }

@@ -12,18 +12,18 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 /**
  * Created by oneal23 on 2018/6/26.
  */
-public class LogUtils {
+public class LogUtil {
 
     public static String TAG = "NaLibs";
     public static boolean DEBUG = BuildConfig.DEBUG;
     private static boolean isInited = false;
 
     public static void setTag(String tag) {
-        LogUtils.TAG = tag;
+        LogUtil.TAG = tag;
     }
 
     public static void setDebug(boolean debug) {
-        LogUtils.DEBUG = debug;
+        LogUtil.DEBUG = debug;
     }
 
     public static void init(String tag){
@@ -43,7 +43,7 @@ public class LogUtils {
 
                 @Override
                 public boolean isLoggable(int priority, @Nullable String tag) {
-                    return LogUtils.DEBUG;
+                    return LogUtil.DEBUG;
                 }
             });
         }
