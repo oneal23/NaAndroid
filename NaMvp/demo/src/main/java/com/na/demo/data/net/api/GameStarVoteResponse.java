@@ -1,5 +1,6 @@
 package com.na.demo.data.net.api;
 
+import com.google.gson.annotations.SerializedName;
 import com.na.demo.data.net.base.ApiResponse;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  */
 public class GameStarVoteResponse extends ApiResponse<List<GameStarVoteResponse.LastWinUser>> {
 
+    @SerializedName("data")
     private List<LastWinUser> data;
 
     @Override
@@ -17,7 +19,9 @@ public class GameStarVoteResponse extends ApiResponse<List<GameStarVoteResponse.
     }
 
     public static class LastWinUser {
+        @SerializedName("prizeName")
         private String prizeName;
+        @SerializedName("nickName")
         private String nickName;
 
         public String getPrizeName() {

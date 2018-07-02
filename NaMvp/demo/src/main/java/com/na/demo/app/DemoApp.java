@@ -1,9 +1,7 @@
 package com.na.demo.app;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.interceptors.HttpLoggingInterceptor;
 import com.na.app.BaseAppliction;
-import com.na.demo.BuildConfig;
+import com.na.demo.data.AppDataManager;
 import com.na.utils.LogUtil;
 
 /**
@@ -14,9 +12,6 @@ public class DemoApp extends BaseAppliction{
     public void onCreate() {
         super.onCreate();
         LogUtil.init("NaLibsDemo");
-        AndroidNetworking.initialize(getApplicationContext());
-        if (BuildConfig.DEBUG) {
-            AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY);
-        }
+        AppDataManager.getInstance().init(getApplicationContext());
     }
 }

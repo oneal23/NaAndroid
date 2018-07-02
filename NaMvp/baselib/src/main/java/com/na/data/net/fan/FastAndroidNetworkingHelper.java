@@ -32,7 +32,8 @@ public class FastAndroidNetworkingHelper implements IHttpHelper {
     public Single<?> get(IBaseHttpRequest request) {
         return Rx2AndroidNetworking.get(request.getUrl())
                 .addHeaders(request.getHeaders())
-                .addPathParameter(request.getParameters())
+                .addPathParameter(request.getPathParameters())
+                .setUserAgent(request.getUserAgent())
                 .build()
                 .getObjectSingle(request.getResponseClass());
     }
@@ -40,8 +41,11 @@ public class FastAndroidNetworkingHelper implements IHttpHelper {
 
     public Single<?> post(IBaseHttpRequest request) {
         return Rx2AndroidNetworking.post(request.getUrl())
+                .setContentType(request.getContentType())
                 .addHeaders(request.getHeaders())
-                .addPathParameter(request.getParameters())
+                .addPathParameter(request.getPathParameters())
+                .addApplicationJsonBody(request.getBodyParmeter())
+                .setUserAgent(request.getUserAgent())
                 .build()
                 .getObjectSingle(request.getResponseClass());
     }

@@ -10,7 +10,8 @@ import com.na.ui.mvp.databind.BaseRxDataBindActivity;
 import com.na.ui.mvp.view.BaseView;
 import com.na.utils.LogUtil;
 
-import io.reactivex.functions.Consumer;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 public class LoginActivity extends BaseRxDataBindActivity<LoginView> implements BaseView.EventListener{
 
@@ -21,18 +22,8 @@ public class LoginActivity extends BaseRxDataBindActivity<LoginView> implements 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         hideActionBar();
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Context context = this;
-//
-//            getWindow().setStatusBarColor(getResources().getColor(R.color.bg_color1));   //这里动态修改颜色
-//        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            getWindow().getDecorView().setSystemUiVisibility( View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-//        }
-
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -42,60 +33,21 @@ public class LoginActivity extends BaseRxDataBindActivity<LoginView> implements 
 
     @Override
     public void onEvent(int event) {
-        getCompositeDisposable().add(AppDataManager.getInstance().getGameStarVote()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(new Consumer<GameStarVoteResponse>() {
-                    @Override
-                    public void accept(GameStarVoteResponse gameStarVoteResponse) throws Exception {
-                        LogUtil.d("isSuc=",  "" + gameStarVoteResponse.isSuccess());
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        LogUtil.d("error", throwable.getMessage());
-                    }
-                }));
-//        getCompositeDisposable().add((Disposable) AppDataManager.getInstance().getGameStarVote().observeOn(getSchedulerProvider().ui()));
+        AppDataManager.getInstance().getGameStarVote(new SingleObserver<GameStarVoteResponse>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
 
-//        getCompositeDisposable().add(getDataManager()
-//                .doFacebookLoginApiCall(new LoginRequest.FacebookLoginRequest("test3", "test4"))
-//                .subscribeOn(getSchedulerProvider().io())
-//                .observeOn(getSchedulerProvider().ui())
-//                .subscribe(new Consumer<LoginResponse>() {
-//                    @Override
-//                    public void accept(LoginResponse response) throws Exception {
-//                        getDataManager().updateUserInfo(
-//                                response.getAccessToken(),
-//                                response.getUserId(),
-//                                DataManager.LoggedInMode.LOGGED_IN_MODE_FB,
-//                                response.getUserName(),
-//                                response.getUserEmail(),
-//                                response.getGoogleProfilePicUrl());
-//
-//                        if (!isViewAttached()) {
-//                            return;
-//                        }
-//
-//                        getMvpView().hideLoading();
-//                        getMvpView().openMainActivity();
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//
-//                        if (!isViewAttached()) {
-//                            return;
-//                        }
-//
-//                        getMvpView().hideLoading();
-//
-//                        // handle the login error here
-//                        if (throwable instanceof ANError) {
-//                            ANError anError = (ANError) throwable;
-//                            handleApiError(anError);
-//                        }
-//                    }
-//                }));
+            @Override
+            public void onSuccess(GameStarVoteResponse gameStarVoteResponse) {
+                LogUtil.d("onSuccess isSuc=",  "" + gameStarVoteResponse.isSuccess());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.d("onError=");
+            }
+        });
     }
 }

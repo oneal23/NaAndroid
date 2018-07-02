@@ -8,6 +8,7 @@ import com.na.utils.rx.AppSchedulerProvider;
 import com.na.utils.rx.SchedulerProvider;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by oneal23 on 2018/6/26.
@@ -43,6 +44,12 @@ public abstract class BaseRxDataBindActivity<V extends IBaseView> extends BaseDa
     protected void createCompositeDisposable(){
         if (getCompositeDisposable() == null){
             setCompositeDisposable(new CompositeDisposable());
+        }
+    }
+
+    protected void addDisposable(Disposable disposable) {
+        if (getCompositeDisposable() != null) {
+            getCompositeDisposable().add(disposable);
         }
     }
 

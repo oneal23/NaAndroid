@@ -15,13 +15,14 @@ import com.na.utils.permission.NaPermission;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.observers.DisposableObserver;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
 
     private static final String TAG = "SplashActivity";
 
-    private final static int DELAY_TIME = 3000;
+    private final static int DELAY_TIME = 2000;
     private static final int PHONESTATE = 200;
 
     private boolean isSplash = false;
@@ -43,7 +44,7 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         hideActionBar();
-        setStatusBarColorResId(R.color.bg_color_1);
+        setStatusBarColorResId(R.color.transparent);
         super.onCreate(savedInstanceState);
     }
 
@@ -65,19 +66,19 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
                         @Override
                         public void onPermissionsGranted(int requestCode) {
                             LogUtil.e("permissionSuccess requsetCode=" + requestCode);
-                            gotoLogin();
+                            splash();
                         }
 
                         @Override
                         public void onPermissionsDenied(int requestCode) {
                             LogUtil.e("onPermissionsDenied requsetCode=" + requestCode);
-                            gotoLogin();
+                            splash();
                         }
 
                         @Override
                         public void onPermissionsDeniedAlways(int requestCode) {
                             LogUtil.e("onPermissionsDeniedAlways requsetCode=" + requestCode);
-                            gotoLogin();
+                            splash();
                         }
                     });
         } else {
@@ -91,7 +92,12 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
             Observable<Long> observable = Observable.timer(DELAY_TIME, TimeUnit.MILLISECONDS)
                     .subscribeOn(getSchedulerProvider().io())
                     .observeOn(getSchedulerProvider().ui());
-            getCompositeDisposable().add(observable.subscribeWith(new DisposableObserver<Long>() {
+            observable.subscribe(new Observer<Long>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+                    addDisposable(d);
+                    LogUtil.d("onSubscribe current thread" + Thread.currentThread().getName());
+                }
 
                 @Override
                 public void onNext(Long l) {
@@ -110,7 +116,7 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
                     isSplash = false;
                     gotoLogin();
                 }
-            }));
+            });
         }
     }
 

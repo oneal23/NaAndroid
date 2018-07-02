@@ -269,7 +269,7 @@ public class NaPermission {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private static void requestPermissionsImpl(Object object, int requestCode, String[] permissions){
+    private static void requestPermissionsImpl(Object object, int requestCode, String[] permissions) {
         if (object instanceof Activity) {
             ((Activity) object).requestPermissions(permissions, requestCode);
         } else if (object instanceof Fragment) {
@@ -297,8 +297,11 @@ public class NaPermission {
     private static void executeMethod(Object activity, Method executeMethod) {
         if (executeMethod != null) {
             try {
-                if (!executeMethod.isAccessible()) executeMethod.setAccessible(true);
-                executeMethod.invoke(activity, null);
+                if (!executeMethod.isAccessible()) {
+                    executeMethod.setAccessible(true);
+                }
+                Object object = null;
+                executeMethod.invoke(activity, object);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {

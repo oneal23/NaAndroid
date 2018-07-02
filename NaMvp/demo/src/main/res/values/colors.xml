@@ -4,8 +4,10 @@
     <color name="colorPrimaryDark">#00303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="transparent">#00000000</color>
+
     <color name="bg_color_0">#ffffff</color>
-    <color name="bg_color_1">#003F51B5</color>
+    <color name="bg_color_1">#3F51B5</color>
     <color name="bg_color_2">#fee34d</color>
 
     <color name="font_color_0">#ffffff</color>

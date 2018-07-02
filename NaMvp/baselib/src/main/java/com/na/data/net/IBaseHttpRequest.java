@@ -17,7 +17,13 @@ public interface IBaseHttpRequest<T> extends Serializable{
 
     IHttpHeader getHeaders();
 
-    IHttpParameter getParameters();
+    IHttpPathParameter getPathParameters();
+
+    IHttpBodyParameter getBodyParmeter();
 
     Class<T> getResponseClass();
+
+    String getContentType();
+
+    String getUserAgent();
 }
