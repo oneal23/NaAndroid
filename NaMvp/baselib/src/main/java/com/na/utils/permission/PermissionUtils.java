@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * Created by oneal23 on 2018/6/26.
  */
-public class NaPermissionUtils {
-    private NaPermissionUtils() {
+public class PermissionUtils {
+    private PermissionUtils() {
 
     }
 
@@ -66,7 +66,7 @@ public class NaPermissionUtils {
     public static <A extends Annotation> Method findMethodPermissionFailWithRequestCode(Class clazz, Class<A> permissionFailClass, int requestCode) {
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(permissionFailClass)) {
-                if (requestCode == method.getAnnotation(NaPermissionsGranted.class).requestCode()) {
+                if (requestCode == method.getAnnotation(PermissionsGranted.class).requestCode()) {
                     return method;
                 }
             }
@@ -83,10 +83,10 @@ public class NaPermissionUtils {
      * @return
      */
     public static boolean isEqualRequestCodeFromAnntation(Method m, Class clazz, int requestCode) {
-        if (clazz.equals(NaPermissionsGranted.class)) {
-            return requestCode == m.getAnnotation(NaPermissionsGranted.class).requestCode();
-        } else if (clazz.equals(NaPermissionsDenied.class)) {
-            return requestCode == m.getAnnotation(NaPermissionsDenied.class).requestCode();
+        if (clazz.equals(PermissionsGranted.class)) {
+            return requestCode == m.getAnnotation(PermissionsGranted.class).requestCode();
+        } else if (clazz.equals(PermissionsDenied.class)) {
+            return requestCode == m.getAnnotation(PermissionsDenied.class).requestCode();
         } else {
             return false;
         }
@@ -106,7 +106,7 @@ public class NaPermissionUtils {
     public static <A extends Annotation> Method findMethodPermissionSuccessWithRequestCode(Class clazz, Class<A> permissionFailClass, int requestCode) {
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(permissionFailClass)) {
-                if (requestCode == method.getAnnotation(NaPermissionsDenied.class).requestCode()) {
+                if (requestCode == method.getAnnotation(PermissionsDenied.class).requestCode()) {
                     return method;
                 }
             }

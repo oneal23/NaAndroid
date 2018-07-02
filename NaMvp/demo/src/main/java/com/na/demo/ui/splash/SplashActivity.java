@@ -10,7 +10,7 @@ import com.na.demo.ui.login.LoginActivity;
 import com.na.demo.ui.splash.view.SplashView;
 import com.na.ui.mvp.databind.BaseRxDataBindActivity;
 import com.na.utils.LogUtil;
-import com.na.utils.permission.NaPermission;
+import com.na.utils.permission.Permission;
 
 import java.util.concurrent.TimeUnit;
 
@@ -59,10 +59,10 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
 
         if (!isNeedCheckPermission) {
             isNeedCheckPermission = true;
-            NaPermission.with(this)
+            Permission.with(this)
                     .addRequestCode(PHONESTATE)
                     .addPermissions(Manifest.permission.READ_PHONE_STATE)
-                    .request(new NaPermission.PermissionCallback() {
+                    .request(new Permission.PermissionCallback() {
                         @Override
                         public void onPermissionsGranted(int requestCode) {
                             LogUtil.e("permissionSuccess requsetCode=" + requestCode);

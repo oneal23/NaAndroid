@@ -7,16 +7,18 @@ import android.util.AttributeSet;
 /**
  * Created by oneal23 on 2018/6/26.
  */
-public class NaImageView extends AppCompatImageView {
-    public NaImageView(Context context) {
+public class BaseImageView extends AppCompatImageView {
+    public BaseImageView(Context context) {
         super(context);
     }
 
-    public NaImageView(Context context, AttributeSet attrs) {
+    public BaseImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public NaImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BaseImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
+
 }

@@ -2,7 +2,7 @@ package com.na.demo.ui.splash.view;
 
 import com.na.demo.R;
 import com.na.ui.mvp.view.ButterKnifeView;
-import com.na.ui.widget.NaImageView;
+import com.na.ui.widget.BaseImageView;
 
 import butterknife.BindView;
 
@@ -12,7 +12,7 @@ import butterknife.BindView;
 public class SplashView extends ButterKnifeView {
 
     @BindView(R.id.ivBg)
-    NaImageView ivBg;
+    BaseImageView ivBg;
 
     @Override
     protected int getLayoutId() {

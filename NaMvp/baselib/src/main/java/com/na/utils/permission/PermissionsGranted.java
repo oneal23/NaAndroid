@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 /**
  * Created by oneal23 on 2018/6/26.
  */
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface NaPermissionsDenied {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PermissionsGranted {
     int requestCode();
 }

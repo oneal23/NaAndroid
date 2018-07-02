@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by oneal23 on 2018/6/26.
  */
-public class NaPermission {
+public class Permission {
 
     public static interface RequestCode {
         int CALENDAR = 10001;
@@ -119,24 +119,24 @@ public class NaPermission {
     private Object object;
     private static PermissionCallback permissionCallback;
 
-    private NaPermission(Object object) {
+    private Permission(Object object) {
         this.object = object;
     }
 
-    public static NaPermission with(Activity activity) {
-        return new NaPermission(activity);
+    public static com.na.utils.permission.Permission with(Activity activity) {
+        return new com.na.utils.permission.Permission(activity);
     }
 
-    public static NaPermission with(Fragment fragment) {
-        return new NaPermission(fragment);
+    public static com.na.utils.permission.Permission with(Fragment fragment) {
+        return new com.na.utils.permission.Permission(fragment);
     }
 
-    public NaPermission permissions(String... permissions) {
+    public com.na.utils.permission.Permission permissions(String... permissions) {
 
         return addPermissions(permissions);
     }
 
-    public NaPermission addPermissions(String... permissions) {
+    public com.na.utils.permission.Permission addPermissions(String... permissions) {
         if (this.mPermissions == null) {
             this.mPermissions = new ArrayList<String>();
         }
@@ -159,7 +159,7 @@ public class NaPermission {
         return null;
     }
 
-    public NaPermission addRequestCode(int requestCode) {
+    public com.na.utils.permission.Permission addRequestCode(int requestCode) {
         this.mRequestCode = requestCode;
         return this;
     }
@@ -226,8 +226,8 @@ public class NaPermission {
 
     public static boolean isPermissionsGranted(Object object, String... permissions) {
         boolean flag = true;
-        if (NaPermissionUtils.isOverMarshmallow()) {
-            List<String> deniedPermissions = NaPermissionUtils.findDeniedPermissions(NaPermissionUtils.getActivity(object), permissions);
+        if (PermissionUtils.isOverMarshmallow()) {
+            List<String> deniedPermissions = PermissionUtils.findDeniedPermissions(PermissionUtils.getActivity(object), permissions);
             if (deniedPermissions != null && deniedPermissions.size() > 0) {
                 flag = false;
             }
@@ -244,7 +244,7 @@ public class NaPermission {
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private static void requestPermissions(Object object, int requestCode, String[] permissions) {
-        if (!NaPermissionUtils.isOverMarshmallow()) {
+        if (!PermissionUtils.isOverMarshmallow()) {
             if (permissionCallback != null) {
                 permissionCallback.onPermissionsGranted(requestCode);
             } else {
@@ -253,7 +253,7 @@ public class NaPermission {
             return;
         }
 
-        List<String> deniedPermissions = NaPermissionUtils.findDeniedPermissions(NaPermissionUtils.getActivity(object), permissions);
+        List<String> deniedPermissions = PermissionUtils.findDeniedPermissions(PermissionUtils.getActivity(object), permissions);
         /**
          * 先检查是否有没有授予的权限，有的话请求，没有的话就直接执行权限授予成功的接口/注解方法
          */
@@ -280,17 +280,17 @@ public class NaPermission {
     }
 
     private static void doExecuteGranted(Object activity, int requestCode) {
-        Method executeMethod = NaPermissionUtils.findMethodWithRequestCode(activity.getClass(), NaPermissionsGranted.class, requestCode);
+        Method executeMethod = PermissionUtils.findMethodWithRequestCode(activity.getClass(), PermissionsGranted.class, requestCode);
         executeMethod(activity, executeMethod);
     }
 
     private static void doExecuteDenied(Object activity, int requestCode) {
-        Method executeMethod = NaPermissionUtils.findMethodWithRequestCode(activity.getClass(), NaPermissionsDenied.class, requestCode);
+        Method executeMethod = PermissionUtils.findMethodWithRequestCode(activity.getClass(), PermissionsDenied.class, requestCode);
         executeMethod(activity, executeMethod);
     }
 
     private static void doExecuteDeniedAlways(Object activity, int requestCode) {
-        Method executeMethod = NaPermissionUtils.findMethodWithRequestCode(activity.getClass(), NaPermissionsDeniedAlways.class, requestCode);
+        Method executeMethod = PermissionUtils.findMethodWithRequestCode(activity.getClass(), PermissionsDeniedAlways.class, requestCode);
         executeMethod(activity, executeMethod);
     }
 
@@ -335,7 +335,7 @@ public class NaPermission {
         }
 
         if (deniedPermissions.size() > 0) {
-            Activity activity = NaPermissionUtils.getActivity(obj);
+            Activity activity = PermissionUtils.getActivity(obj);
             boolean isRationale = false;
             if (activity != null) {
                 isRationale = ActivityCompat.shouldShowRequestPermissionRationale(activity, deniedPermissions.get(0));
@@ -383,7 +383,7 @@ public class NaPermission {
     }
 
     private static void needDrawOverlaysPermission(Object obj) {
-        Activity activity = NaPermissionUtils.getActivity(obj);
+        Activity activity = PermissionUtils.getActivity(obj);
         if (!checkDrawOverlaysPermission(activity)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + activity.getPackageName()));
             activity.startActivityForResult(intent, RequestCode.DRAWOVERLAYS);
@@ -446,7 +446,7 @@ public class NaPermission {
 
     private static void requestResult(Object obj, int requestCode, int resultCode, Intent data) {
         if (requestCode == RequestCode.DRAWOVERLAYS) {
-            Activity activity = NaPermissionUtils.getActivity(obj);
+            Activity activity = PermissionUtils.getActivity(obj);
             if (!checkDrawOverlaysPermission(activity)) {
                 if (permissionCallback != null) {
                     permissionCallback.onPermissionsDenied(requestCode);
