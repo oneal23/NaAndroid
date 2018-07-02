@@ -5,12 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.na.demo.R;
 import com.na.demo.ui.login.LoginActivity;
 import com.na.demo.ui.splash.view.SplashView;
 import com.na.ui.mvp.databind.BaseRxDataBindActivity;
 import com.na.utils.LogUtil;
-import com.na.utils.permission.Permission;
+import com.na.utils.permission.PermissionChecker;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,14 +36,17 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
     }
 
     @Override
+    protected boolean isFullSreen() {
+        return true;
+    }
+
+    @Override
     public Class<SplashView> getBaseViewClass() {
         return SplashView.class;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        hideActionBar();
-        setStatusBarColorResId(R.color.transparent);
         super.onCreate(savedInstanceState);
     }
 
@@ -59,10 +61,10 @@ public class SplashActivity extends BaseRxDataBindActivity<SplashView> {
 
         if (!isNeedCheckPermission) {
             isNeedCheckPermission = true;
-            Permission.with(this)
+            PermissionChecker.with(this)
                     .addRequestCode(PHONESTATE)
                     .addPermissions(Manifest.permission.READ_PHONE_STATE)
-                    .request(new Permission.PermissionCallback() {
+                    .request(new PermissionChecker.PermissionCallback() {
                         @Override
                         public void onPermissionsGranted(int requestCode) {
                             LogUtil.e("permissionSuccess requsetCode=" + requestCode);

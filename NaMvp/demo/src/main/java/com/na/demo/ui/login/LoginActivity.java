@@ -16,13 +16,18 @@ import io.reactivex.disposables.Disposable;
 public class LoginActivity extends BaseRxDataBindActivity<LoginView> implements BaseView.EventListener{
 
     @Override
+    protected boolean isFullSreen() {
+        return true;
+    }
+
+    @Override
     public Class<LoginView> getBaseViewClass() {
         return LoginView.class;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        hideActionBar();
+        setLightStatusBar();
         super.onCreate(savedInstanceState);
     }
 

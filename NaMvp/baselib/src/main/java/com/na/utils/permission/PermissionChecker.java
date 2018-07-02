@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by oneal23 on 2018/6/26.
  */
-public class Permission {
+public class PermissionChecker {
 
     public static interface RequestCode {
         int CALENDAR = 10001;
@@ -119,24 +119,24 @@ public class Permission {
     private Object object;
     private static PermissionCallback permissionCallback;
 
-    private Permission(Object object) {
+    private PermissionChecker(Object object) {
         this.object = object;
     }
 
-    public static com.na.utils.permission.Permission with(Activity activity) {
-        return new com.na.utils.permission.Permission(activity);
+    public static PermissionChecker with(Activity activity) {
+        return new PermissionChecker(activity);
     }
 
-    public static com.na.utils.permission.Permission with(Fragment fragment) {
-        return new com.na.utils.permission.Permission(fragment);
+    public static PermissionChecker with(Fragment fragment) {
+        return new PermissionChecker(fragment);
     }
 
-    public com.na.utils.permission.Permission permissions(String... permissions) {
+    public PermissionChecker permissions(String... permissions) {
 
         return addPermissions(permissions);
     }
 
-    public com.na.utils.permission.Permission addPermissions(String... permissions) {
+    public PermissionChecker addPermissions(String... permissions) {
         if (this.mPermissions == null) {
             this.mPermissions = new ArrayList<String>();
         }
@@ -159,7 +159,7 @@ public class Permission {
         return null;
     }
 
-    public com.na.utils.permission.Permission addRequestCode(int requestCode) {
+    public PermissionChecker addRequestCode(int requestCode) {
         this.mRequestCode = requestCode;
         return this;
     }
