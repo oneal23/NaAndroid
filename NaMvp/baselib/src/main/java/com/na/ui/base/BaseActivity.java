@@ -1,15 +1,15 @@
 package com.na.ui.base;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.WindowManager;
 
+import com.jaeger.library.StatusBarUtil;
 import com.na.utils.AppManager;
 import com.na.utils.permission.PermissionChecker;
 
@@ -26,44 +26,68 @@ public class BaseActivity extends AppCompatActivity {
         getSupportActionBar().show();
     }
 
-    protected boolean setStatusBarColor(@ColorInt int color){
-        boolean flag = false;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(color);
-            flag = true;
-        }
-        return flag;
+    protected void setStatusBarColor(@ColorInt int color){
+        StatusBarUtil.setColor(this, color, 0);
     }
 
-    protected boolean setStatusBarColorResId(int colorResId) {
-        boolean flag = false;
+    protected void setStatusBarColorResId(int colorResId) {
         if (colorResId > 0){
             int color = getResources().getColor(colorResId);
-            flag = setStatusBarColor(color);
+            setStatusBarColor(color);
         }
-        return flag;
     }
 
-    protected boolean setLightStatusBar(){
-        boolean flag = false;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            flag = true;
+    protected void setLightMode(){
+        StatusBarUtil.setLightMode(this);
+    }
+
+    protected void setDarkMode() {
+        StatusBarUtil.setDarkMode(this);
+    }
+
+    protected void setTransparent() {
+//        StatusBarUtil.setTransparent(this);
+        setTransparentDiff();
+    }
+
+    protected void setTransparentDiff() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            return;
         }
-        return flag;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+    protected void clearTransparentDiff() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 
     protected boolean isFullSreen() {
         return false;
     }
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        hideActionBar();
         if (isFullSreen()){
-            hideActionBar();
-            setStatusBarColor(Color.TRANSPARENT);
+            setTransparent();
         }
         super.onCreate(savedInstanceState);
         AppManager.getInstance().addActivity(this);

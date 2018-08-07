@@ -3,4 +3,56 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="translate">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="black_30">#4c000000</color>
+    <color name="black_70">#B2000000</color>
+
+    //bg color
+    <color name="bg_color_0">#ffffff</color>
+    <color name="bg_color_0_10">#19ffffff</color>
+    <color name="bg_color_0_30">#4cffffff</color>
+    <color name="bg_color_0_40">#66ffffff</color>
+    <color name="bg_color_0_50">#8cffffff</color>
+    <color name="bg_color_1">#f2f3f8</color>
+    <color name="bg_color_2">#bec2cf</color>
+
+    <color name="bg_color_4">#2786ff</color>
+    <color name="bg_color_4_10">#192786ff</color>
+    <color name="bg_color_5">#27a3ff</color>
+
+    //font color
+    <color name="font_color_0">#ffffff</color>
+    <color name="font_color_0_50">#8cffffff</color>
+    <color name="font_color_1">#bec2cf</color>
+    <color name="font_color_2">#969ba5</color>
+    <color name="font_color_3">#6e727a</color>
+    <color name="font_color_4">#2786ff</color>
+    <color name="font_color_5">#27a3ff</color>
+    <color name="font_color_6">#181818</color>
+    <color name="font_color_6_75">#BF181818</color>
+    <color name="font_color_7">#fd8d04</color>
+
+    <!-- 透明度参考
+    95%=F2
+    90%=E5
+    85%=D8
+    80%=CC
+    75%=BF
+    70%=B2
+    65%=A5
+    60%=99
+    55%=8c
+    50%=7F
+    45%=72
+    40%=66
+    35%=59
+    30%=4c
+    25%=3F
+    20%=33
+    15%=21
+    10%=19
+    5%=0c
+    -->
 </resources>

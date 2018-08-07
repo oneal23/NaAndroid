@@ -16,23 +16,27 @@ import com.na.utils.permission.PermissionChecker;
 public class BaseFragment extends Fragment {
 
     protected void hideActionBar() {
-       getBaseActivity().hideActionBar();
+        getBaseActivity().hideActionBar();
     }
 
     protected void showActionBar() {
         getBaseActivity().showActionBar();
     }
 
-    protected boolean setStatusBarColor(@ColorInt int color){
-        return getBaseActivity().setStatusBarColor(color);
+    protected void setStatusBarColor(@ColorInt int color) {
+        getBaseActivity().setStatusBarColor(color);
     }
 
-    protected boolean setStatusBarColorResId(int colorResId) {
-        return getBaseActivity().setStatusBarColorResId(colorResId);
+    protected void setStatusBarColorResId(int colorResId) {
+        getBaseActivity().setStatusBarColorResId(colorResId);
     }
 
-    protected boolean setLightStatusBar(){
-        return getBaseActivity().setLightStatusBar();
+    protected void setLightMode() {
+        getBaseActivity().setLightMode();
+    }
+
+    protected void setDarkMode() {
+        getBaseActivity().setDarkMode();
     }
 
     protected boolean isFullSreen() {
@@ -40,13 +44,13 @@ public class BaseFragment extends Fragment {
     }
 
 
-    protected BaseActivity getBaseActivity(){
+    protected BaseActivity getBaseActivity() {
         return (BaseActivity) getActivity();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        if (isFullSreen()){
+        if (isFullSreen()) {
             hideActionBar();
             setStatusBarColor(Color.TRANSPARENT);
         }
